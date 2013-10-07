@@ -1,20 +1,24 @@
 import java.util.Arrays;
+import java.util.ArrayList;
 
 
 public class set{
 	public String name = "default";
 	public element[] elements;
+	//public ArrayList<element> elements;
 	public double min;
 	public double max;
 	public double step;
 	
 	//Constructeurs
-	public set(element[] elements, String name){
+	public set(element[] elements, double min, double max, String name){
 	    this.name = name;
+	    //this.elements = new elements[elements.length+2]={new element(min,0), elements ,new element(max,0)};
+
 	    this.elements = elements;
 	    Arrays.sort(elements);
-	    this.min = elements[0].x;
-	    this.max = elements[elements.length-1].x;
+	    //this.min = elements[0].x;
+	    //this.max = elements[elements.length-1].x;
 	    this.step = 0.01; // to be refined...
 	}
 
@@ -49,6 +53,7 @@ public class set{
 				}
 			}
 			i = i + 1; // Essayer des sauts plus grands ? par dichotomie ? Ca dépend..
+						// S'il y a des points tous les STEPS, ça prend plein de place mais on trouve vite ce qu'on veut...
 		} while(x2>x);
 	    return 0;
 	}
