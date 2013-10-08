@@ -2,14 +2,14 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+// mettre privé name, etc. set/get
 public class set{
 	public String name;
 	public ArrayList<element> elements;
 	public double min, max, step;
 	public double vLeft = 0;
 	public double vRight = 0; // values outside of bounds. Not always 0 :(
-	
+
 	//Constructors
 	public set(set another){
     	this.name = another.name;
@@ -38,7 +38,7 @@ public class set{
 	    this.vLeft = vLeft;
 	    this.vRight = vRight;
 	    this.max = max;
-	    this.step = 0.01; // to be refined
+	    this.step = 0.01; // min(plus petite précision,0.01) ?
 	    this.name = name;
 	}
 
@@ -109,13 +109,17 @@ public class set{
 	    //return AnB;
 	    return A;
 	}
-	//public static set apply(ensemble A, math.function f){}{
-	    // Premier algo possible
-	    // calcul des valeurs des points (x,y) de A -> double[][] (f(x), y)
-	    // Si on calcul un f(x) déjà obtenu, on prend la valeur d'appartenance la plus grande
-	    // ici le pas de discretisation va changer...
-	    // Deuxième algo possible
-	    // On pose discrètise l'ensemble des valeurs des f(x)
-	    // On calcule les f-1(x), on prend la plus grande valeur...
+	public set discretize(set A, double step){
+		// Pour les unions... A voir si c'est utile.
+		// x1.......x2 : plein de pooints interméiaidaire
+		set dA = new set(A);
+		return A;
+	}
+	//public static set apply(set A, IMapping f){}{ // step, min, max ?
+	//	set fA = new set(A);
+		// Choose bounds
+		// discretize
+		// get values...
+	    //return A;
 	//}
 }
