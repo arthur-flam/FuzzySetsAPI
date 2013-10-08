@@ -1,22 +1,27 @@
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class set{
 	public String name = "default";
-	public element[] elements;
-	//public ArrayList<element> elements;
+	public ArrayList<element> elements;
 	public double min;
 	public double max;
 	public double step;
 	
 	//Constructeurs
-	public set(element[] elements, double min, double max, String name){
+	public set(ArrayList<element> elements, double min, double max, String name){
 	    this.name = name;
 	    //this.elements = new elements[elements.length+2]={new element(min,0), elements ,new element(max,0)};
 
 	    this.elements = elements;
-	    Arrays.sort(elements);
+	    Collections.sort(elements);
+
+	    // Premier et dernier élements
+	    elements.get(1);
+	    elements.get(this.length());
+
 	    //this.min = elements[0].x;
 	    //this.max = elements[elements.length-1].x;
 	    this.step = 0.01; // to be refined...
@@ -24,13 +29,13 @@ public class set{
 
 	//Informations
 	public int length(){
-	    return elements.length;
+	    return elements.size();
 	};
 	public String toString(){
 		String out = name+"\n";
 		out = out + this.length()+" points\n";
-		for(int i = 0; i < elements.length; i++){
-		    out = out + elements[i].toString()+"\n";
+		for (element e : elements){
+			out = out + elements.toString()+"\n";
 		}
 		return out;
 	}
@@ -41,12 +46,12 @@ public class set{
 		double x1,x2,y1,y2;
 		int i = startIndex;
 		do{
-			x1 = elements[i].x ;
-			x2 = elements[i+1].x;
+			x1 = elements.get(i).x ;
+			x2 = elements.get(i+1).x;
 			if(x2>=x){
 				if(x1<=x){
-					y1 = elements[i].y;
-					y2 = elements[i+1].y;
+					y1 = elements.get(i).y;
+					y2 = elements.get(i+1).y;
 	    			return (y2-y1)/(x2-x1) * (x-x1) + y1;
 				} else{
 					System.out.println("Error : x2<x1 ??");

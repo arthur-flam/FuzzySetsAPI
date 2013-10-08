@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.ArrayList;
+
 public class fuzzySetsAPI{
     public static void main(String[] args){
 		element a = new element(2, 0);
@@ -10,7 +13,7 @@ public class fuzzySetsAPI{
 		System.out.println("***");
 
 		System.out.println("2. Création d'un ensemble");
-		element[] elementsA = {a,b,c};
+		ArrayList<element> elementsA = new ArrayList<element>(Arrays.asList(a,b,c));
 		double min=0, max=10;
 		set SetA = new set(elementsA, min, max, "SetA");
 		System.out.println("Taille: "+ SetA.length());
