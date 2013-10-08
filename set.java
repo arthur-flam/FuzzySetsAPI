@@ -6,7 +6,7 @@ import java.util.Collections;
 public class set{
 	public String name;
 	public ArrayList<element> elements;
-	public double min, max, step;
+	public double min, max, step=0.1;
 	public double vLeft = 0;
 	public double vRight = 0; // values outside of bounds. Not always 0 :(
 
@@ -22,15 +22,15 @@ public class set{
 	    this.elements = elements;
 	    Collections.sort(elements);
 	    // Bounds
-	    element first = elements.get(1);
+	    element first = elements.get(0);
 	    element last  = elements.get(this.length()-1);
 	    if(first.x > min){
-	    	elements.add(0, new element(min, 0));
+	    	elements.add(0, new element(min, vLeft));
 	    } else if(first.x < min){
 		    	System.out.println("La borne inférieure est supérieure à un des élements");
 	    }
 	    if(last.x < max){
-	    	elements.add(new element(max, 0));
+	    	elements.add(new element(max, vRight));
 	    } else if(last.x > max){
 		    	System.out.println("La borne supérieure est inférieure à un des élements");
 	    }
@@ -38,7 +38,6 @@ public class set{
 	    this.vLeft = vLeft;
 	    this.vRight = vRight;
 	    this.max = max;
-	    this.step = 0.01; // min(plus petite précision,0.01) ?
 	    this.name = name;
 	}
 
@@ -50,7 +49,7 @@ public class set{
 		String out = name+"\n";
 		out = out + this.length()+" points\n";
 		out = out + "inf:" + this.min + "  (" + this.vLeft + ")\n";
-		out = out + "sup:" + this.min + "  (" + this.vRight + ")\n";
+		out = out + "sup:" + this.max + "  (" + this.vRight + ")\n";
 		for (element e : elements){
 			out = out + e.toString()+"\n"; // elements.toString() suffit 
 		}
@@ -83,6 +82,13 @@ public class set{
 		} while(x>x2);
 	    return 0;
 	}
+	public ArrayList<Double> valueAt(ArrayList<Double> xx){
+		ArrayList<Double> values = new ArrayList<Double>(); 
+		for(double x : xx){
+			values.add(valueAt(x));
+		}
+		return values;
+	}
 
 	//Opérations ensemblistes
 	public static set complementaire(set A){
@@ -109,17 +115,39 @@ public class set{
 	    //return AnB;
 	    return A;
 	}
-	public set discretize(set A, double step){
-		// Pour les unions... A voir si c'est utile.
-		// x1.......x2 : plein de pooints interméiaidaire
+	public static set discretize(set A, double step){
+		// x1.......x2 : plein de pooints intermédiaires TODO
 		set dA = new set(A);
 		return A;
 	}
-	//public static set apply(set A, IMapping f){}{ // step, min, max ?
-	//	set fA = new set(A);
-		// Choose bounds
-		// discretize
-		// get values...
-	    //return A;
-	//}
+	public static set apply(set A, IMapping f, double step){ // step, min, max ?
+		double v;
+		element el;
+		double fmin = f.compute(A.elements.get(0).x);
+		double fmax = f.compute(A.elements.get(0).x);
+		for(element e : set.discretize(A,step).elements){
+			v = f.compute(e.x);
+			if(e.y>0){
+				if(v>fmax){fmax = v;};
+				if(v<fmin){fmin = v;};				
+			}
+		}
+		ArrayList<element> elements = new ArrayList<element>();
+		ArrayList<Double> antecedents;
+		ArrayList<Double> values;
+		double padding = 1.1;
+		fmax = fmax * padding;
+		fmin = fmin * padding;
+		for(double i=fmin; i<=fmax; i=i+step){
+			antecedents = f.reverse(i);
+			if(!antecedents.isEmpty()){
+				values = A.valueAt(antecedents); // faire une dichotomie..
+				v = Collections.max(values);
+				el = new element(i, v);
+				elements.add(el);
+			}
+		};
+		set fA = new set(elements, fmin, fmax, "f("+A.name+")");
+	    return fA;
+	}
 }
