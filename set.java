@@ -96,9 +96,17 @@ public class set{
 	    return Ac;
 	}
 	public set union(set A, set B, String method){
+		// bounds (min, max, vLeft, vRigth)
+		// points : apply method... 
+		// name, step...
+	    //return AuB;
 	    return A;
 	}
 	public set intersection(set A, set B, String method){
+		// bounds (min, max, vLeft, vRigth)
+		// points : apply method... 
+		// name, step...
+	    //return AnB;
 	    return A;
 	}
 	//public static set apply(ensemble A, math.function f){}{
