@@ -14,11 +14,11 @@ public class fuzzySetsAPI{
 
 		System.out.println("2. Création d'un ensemble");
 		ArrayList<element> elementsA = new ArrayList<element>(Arrays.asList(a,b,c));
-		double min=0, max=10;
+		double min=-1, max=10;
 		set SetA = new set(elementsA, min, max, "SetA");
-		System.out.println("Taille: "+ SetA.length());
+		//System.out.println("Taille: "+ SetA.length());
 
-		//System.out.println(SetA);
+		System.out.println(SetA);
 		//System.out.println("Nom: "+ SetA.name);
 		System.out.println("***");
 

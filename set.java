@@ -10,36 +10,43 @@ public class set{
 	public double max;
 	public double step;
 	
-	//Constructeurs
 	public set(ArrayList<element> elements, double min, double max, String name){
-	    this.name = name;
-	    //this.elements = new elements[elements.length+2]={new element(min,0), elements ,new element(max,0)};
-
 	    this.elements = elements;
 	    Collections.sort(elements);
 
-	    // Premier et dernier élements
-	    elements.get(1);
-	    elements.get(this.length());
-
-	    //this.min = elements[0].x;
-	    //this.max = elements[elements.length-1].x;
-	    this.step = 0.01; // to be refined...
+	    // Bornes
+	    element first = elements.get(1);
+	    element last  = elements.get(this.length()-1);
+	    if(first.x > min){
+	    	elements.add(0, new element(min, 0));
+	    } else if(first.x < min){
+		    	System.out.println("La borne inférieure est supérieure à un des élements");
+	    }
+	    if(last.x < max){
+	    	elements.add(new element(max, 0));
+	    } else if(last.x > max){
+		    	System.out.println("La borne supérieure est inférieure à un des élements");
+	    }
+	    this.min = min;
+	    this.max = max;
+	    this.step = 0.01; // to be refined
+	    this.name = name;
 	}
 
-	//Informations
 	public int length(){
 	    return elements.size();
 	};
 	public String toString(){
 		String out = name+"\n";
 		out = out + this.length()+" points\n";
+		out = out + "Bounds : min:" + this.min + "  max:" + this.max + "\n";
 		for (element e : elements){
-			out = out + elements.toString()+"\n";
+			out = out + e.toString()+"\n"; // elements.toString() suffit 
 		}
 		return out;
 	}
 	public double valueAt(double x){
+		if(x > max || x < min) {return 0;};
 	    return valueAt(x, 0);
 	}
 	public double valueAt(double x, int startIndex){
@@ -59,7 +66,7 @@ public class set{
 			}
 			i = i + 1; // Essayer des sauts plus grands ? par dichotomie ? Ca dépend..
 						// S'il y a des points tous les STEPS, ça prend plein de place mais on trouve vite ce qu'on veut...
-		} while(x2>x);
+		} while(x>x2);
 	    return 0;
 	}
 
