@@ -4,17 +4,24 @@ import java.util.Collections;
 
 
 public class set{
-	public String name = "default";
+	public String name;
 	public ArrayList<element> elements;
-	public double min;
-	public double max;
-	public double step;
+	public double min, max, step;
+	public double vLeft = 0;
+	public double vRight = 0; // values outside of bounds. Not always 0 :(
 	
-	public set(ArrayList<element> elements, double min, double max, String name){
+	//Constructors
+	public set(set another){
+    	this.name = another.name;
+    	this.elements = another.elements;
+    	this.min = another.min;
+    	this.max = another.max;
+    	this.step = another.step;
+  	}
+	public set(ArrayList<element> elements, double min, double max, String name){ // Doesn't support values != 0 outside of bounds
 	    this.elements = elements;
 	    Collections.sort(elements);
-
-	    // Bornes
+	    // Bounds
 	    element first = elements.get(1);
 	    element last  = elements.get(this.length()-1);
 	    if(first.x > min){
@@ -28,25 +35,32 @@ public class set{
 		    	System.out.println("La borne supérieure est inférieure à un des élements");
 	    }
 	    this.min = min;
+	    this.vLeft = vLeft;
+	    this.vRight = vRight;
 	    this.max = max;
 	    this.step = 0.01; // to be refined
 	    this.name = name;
 	}
 
+	//General methods
 	public int length(){
 	    return elements.size();
 	};
 	public String toString(){
 		String out = name+"\n";
 		out = out + this.length()+" points\n";
-		out = out + "Bounds : min:" + this.min + "  max:" + this.max + "\n";
+		out = out + "inf:" + this.min + "  (" + this.vLeft + ")\n";
+		out = out + "sup:" + this.min + "  (" + this.vRight + ")\n";
 		for (element e : elements){
 			out = out + e.toString()+"\n"; // elements.toString() suffit 
 		}
 		return out;
 	}
+
+	//Accessing values
 	public double valueAt(double x){
-		if(x > max || x < min) {return 0;};
+		if(x > max) {return vRight;};
+		if(x < min) {return vLeft;};
 	    return valueAt(x, 0);
 	}
 	public double valueAt(double x, int startIndex){
@@ -71,13 +85,20 @@ public class set{
 	}
 
 	//Opérations ensemblistes
+	public static set complementaire(set A){
+		set Ac = new set(A);
+		Ac.name = "c("+Ac.name+")";
+		for(element e : Ac.elements){
+			e.y = 1 - e.y;
+		}
+		Ac.vLeft = 1- Ac.vLeft;
+		Ac.vRight = 1 - Ac.vRight;
+	    return Ac;
+	}
 	public set union(set A, set B, String method){
 	    return A;
 	}
 	public set intersection(set A, set B, String method){
-	    return A;
-	}
-	public set complementaire(set A){
 	    return A;
 	}
 	//public static set apply(ensemble A, math.function f){}{

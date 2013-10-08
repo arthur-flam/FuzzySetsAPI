@@ -27,6 +27,8 @@ public class fuzzySetsAPI{
 		System.out.println("0.5 :"+SetA.valueAt(0.5));
 		System.out.println("1   :"+SetA.valueAt(1));
 
+		System.out.println("4. Complémentaire :");
+		System.out.println(set.complementaire(SetA));
 		//data d = new data(); 
 		/** Use case
 		    data = new data
