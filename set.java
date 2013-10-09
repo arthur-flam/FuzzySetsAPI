@@ -123,7 +123,6 @@ public class set{
 	    return A;
 	}
 	public static set discretize(set A, double step){
-		// x1.......x2 : plein de pooints intermédiaires TODO
 		element e;
 		set dA = new set(A);
 		dA.elements.clear();

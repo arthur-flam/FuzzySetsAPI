@@ -1,13 +1,15 @@
+import java.util.ArrayList;
+//import java.util.Collections;
+
+
 public class data{
-	public set[] sets;
-	public String[] list(){
-	    String[] names;
-	    names = new String[sets.length];
-	    for(int i = 0; i>sets.length; i++){
-		//names[i] = sets[i].name;
-	    }
-	    return names;
+	public ArrayList<set> sets = new ArrayList<set>();
+
+	public String toString(){
+		String out = "Ensembles:";
+		for(set s : sets){
+			out = out + "\n* "+s.name + " (" + s.length() + " points entre "+s.min+" et "+s.max+")";
+		}	
+		return out;	
 	}
-	public void add(){};
-	public void remove(){};
 }
