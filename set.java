@@ -13,7 +13,14 @@ public class set{
 	//Constructors
 	public set(set another){
     	this.name = another.name;
-    	this.elements = another.elements;
+    	ArrayList<element> elementsCopy = new ArrayList<element>();
+    	int i=0;
+    	for(element e : another.elements){
+    		elementsCopy.add(i, new element(e.x, e.y));
+    		i=i+1;
+    	}
+    	this.elements = elementsCopy;
+    	//this.elements = another.elements;
     	this.min = another.min;
     	this.max = another.max;
     	this.step = another.step;
@@ -117,8 +124,14 @@ public class set{
 	}
 	public static set discretize(set A, double step){
 		// x1.......x2 : plein de pooints intermédiaires TODO
+		element e;
 		set dA = new set(A);
-		return A;
+		dA.elements.clear();
+		for(double i=A.min; i<=A.max; i=i+step){
+				e = new element(i, A.valueAt(i));
+				dA.elements.add(e);	
+		}
+		return dA;
 	}
 	public static set apply(set A, IMapping f, double step){ // step, min, max ?
 		double v;

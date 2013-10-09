@@ -32,12 +32,12 @@ public class fuzzySetsAPI{
 
 		System.out.println("3. Valeur aux points :");
 		System.out.println("0   :"+SetA.valueAt(0));
-		System.out.println("1 :"+SetA.valueAt(0.5));
-		System.out.println("2   :"+SetA.valueAt(1));
+		System.out.println("1 :"+SetA.valueAt(1));
+		System.out.println("2   :"+SetA.valueAt(2));
 		System.out.println("***\n");
 
 		System.out.println("4. Complémentaire :");
-		//System.out.println(set.complementaire(SetA));
+		System.out.println(set.complementaire(SetA));
 		System.out.println("***\n");
 
 		System.out.println("4. Fonctions - carré");
