@@ -9,6 +9,6 @@ public class function_identity implements IMapping{
 		return new ArrayList<Double>(Arrays.asList(x));
 	};
 	public String toString(){
-		return "x |-> f(x) = x";
+		return "identity";
 	};
 }

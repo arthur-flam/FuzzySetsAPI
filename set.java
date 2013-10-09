@@ -11,7 +11,7 @@ public class set{
 	public double vRight = 0; // values outside of bounds. Not always 0 :(
 
 	//Constructors
-	public set(set another){
+	public set(set another){ // pour faire une vrai copie !
     	this.name = another.name;
     	ArrayList<element> elementsCopy = new ArrayList<element>();
     	int i=0;
@@ -20,7 +20,6 @@ public class set{
     		i=i+1;
     	}
     	this.elements = elementsCopy;
-    	//this.elements = another.elements;
     	this.min = another.min;
     	this.max = another.max;
     	this.step = another.step;
@@ -63,7 +62,6 @@ public class set{
 		return out;
 	}
 
-	//Accessing values
 	public double valueAt(double x){
 		if(x > max) {return vRight;};
 		if(x < min) {return vLeft;};
@@ -122,7 +120,7 @@ public class set{
 	    //return AnB;
 	    return A;
 	}
-	public static set discretize(set A, double step){
+	public static set discretize(set A, double step){ // utile pour appliquer des fonctions 
 		element e;
 		set dA = new set(A);
 		dA.elements.clear();
@@ -147,9 +145,9 @@ public class set{
 		ArrayList<element> elements = new ArrayList<element>();
 		ArrayList<Double> antecedents;
 		ArrayList<Double> values;
-		double padding = 1.1;
-		fmax = fmax * padding;
-		fmin = fmin * padding;
+		double padding = (fmax-fmin)*0.1;
+		fmax = fmax + padding;
+		fmin = fmin - padding;
 		for(double i=fmin; i<=fmax; i=i+step){
 			antecedents = f.reverse(i);
 			if(!antecedents.isEmpty()){
@@ -159,7 +157,8 @@ public class set{
 				elements.add(el);
 			}
 		};
-		set fA = new set(elements, fmin, fmax, "f("+A.name+")");
+		String newName = f.toString()+"("+A.name+")";
+		set fA = new set(elements, fmin, fmax, newName);
 	    return fA;
 	}
 }

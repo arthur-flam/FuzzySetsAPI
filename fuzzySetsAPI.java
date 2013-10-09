@@ -12,26 +12,17 @@ public class fuzzySetsAPI{
 		// element e = new element(2, 0);
     	// b)
 		element a = new element(1, 0);
-		element b = new element(1.01, 0.01);
 		element c = new element(2, 1);
-		element d = new element(2.99, 0.01);
 		element e = new element(3, 0);
 		System.out.println("Premier point :");
 		System.out.println(a);
 		System.out.println("***\n");
 
 		System.out.println("2. Création d'un ensemble");
-		ArrayList<element> elementsA = new ArrayList<element>(Arrays.asList(a,b,c,d,e));
+		ArrayList<element> elementsA = new ArrayList<element>(Arrays.asList(a,c,e));
 		double min=-1.5, max=3;
 		set SetA = new set(elementsA, min, max, "SetA");
 		System.out.println(SetA);
-
-
-		System.out.println("2. Collection d'ensembles");
-		data data = new data(); 
-		data.sets.add(SetA);
-		System.out.println(data);
-		System.out.println("***\n");
 
 		System.out.println("3. Valeur aux points :");
 		System.out.println("0   :"+SetA.valueAt(0));
@@ -41,14 +32,26 @@ public class fuzzySetsAPI{
 		System.out.println("2   :"+SetA.valueAt(2));
 		System.out.println("***\n");
 
-		System.out.println("4. Complémentaire :");
-		System.out.println(set.complementaire(SetA));
+		System.out.println("4. Collection d'ensembles");
+		data data = new data(); 
+		data.sets.add(SetA);
+		System.out.println(data);
 		System.out.println("***\n");
 
-		System.out.println("4. Fonctions - carré");
+
+		System.out.println("5. Complémentaire :");
+		set SetB = set.complementaire(SetA);
+		data.sets.add(SetB);
+		System.out.println(SetB);
+		System.out.println("***\n");
+
+		System.out.println("4. Fonctions");
 		//IMapping f = new function_identity();
 		IMapping f = new function_square();
-		System.out.println(set.apply(SetA, f, 0.1));
+		set SetC = set.apply(SetA, f, 0.1);
+		data.sets.add(SetC);
+		System.out.println(SetC);
+		System.out.println(data);
 		System.out.println("***\n");
 
     }

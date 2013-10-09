@@ -14,6 +14,6 @@ public class function_square implements IMapping{
 		}
 	};
 	public String toString(){
-		return "x |-> f(x) = x^2";
+		return "square";
 	};
 }

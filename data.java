@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-//import java.util.Collections;
-
 
 public class data{
 	public ArrayList<set> sets = new ArrayList<set>();
