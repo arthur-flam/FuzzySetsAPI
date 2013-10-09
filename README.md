@@ -9,10 +9,9 @@ git clone https://github.com/arthur-flam/FuzzySetsAPI.git
 javac *.java && java fuzzySetsAPI
 ```
 
-### Status : under heavy development
+### Status : under development
 
 ### TODO
-- Further discretization at will for sets.
 - Union & intersections for different co-norms.
 - GUI
 - I/O
