@@ -14,7 +14,7 @@ public class fuzzySetsAPI{
 		element a = new element(1, 0);
 		element c = new element(2, 1);
 		element e = new element(3, 0);
-		System.out.println("Premier point :");
+		System.out.println("1. Premier point :");
 		System.out.println(a);
 		System.out.println("***\n");
 
@@ -45,7 +45,7 @@ public class fuzzySetsAPI{
 		System.out.println(SetB);
 		System.out.println("***\n");
 
-		System.out.println("4. Fonctions");
+		System.out.println("6. Fonctions");
 		//IMapping f = new function_identity();
 		IMapping f = new function_square();
 		set SetC = set.apply(SetA, f, 0.1);
@@ -53,6 +53,12 @@ public class fuzzySetsAPI{
 		System.out.println(SetC);
 		System.out.println(data);
 		System.out.println("***\n");
+
+		System.out.println("6. Opérations");
+		set SetAuB = Set.union(A, B, "zadeh");
+		set SetAuB = Set.intersection(A, B, "zadeh");
+		System.out.println(SetAuB);
+		System.out.println(SetAuB);
 
     }
 }
