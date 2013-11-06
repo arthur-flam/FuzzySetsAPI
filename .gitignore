@@ -4,6 +4,8 @@ Icon*
 #java specific
 *.class
 
+*.html
+
 #netbeans ignore personal stuff
 nbproject/private/
 

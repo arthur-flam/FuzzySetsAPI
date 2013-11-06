@@ -31,8 +31,7 @@ public class set{
     * @param  elements  The elements describing the belonging function
     * @param  min  the lower bound for the belonging function
     * @param  max  the upper bound for the belonging function
-    * @param  the chosen name for the set 
-    * @return  a set object
+    * @param  name the chosen name for the set 
  	*/
 	public set(ArrayList<element> elements, double min, double max, String name){ // Doesn't support values != 0 outside of bounds
 	    this.elements = elements;
@@ -153,7 +152,7 @@ public class set{
 
  	/**
     * Returns the complement of a set.
-    * @param  set  A set
+    * @param  A  a set
     * @return  A's complement set
     */
 	public static set complementaire(set A){
@@ -172,9 +171,9 @@ public class set{
     * <p>
     * The sets being sorted, we blend them together find all different x values by iterating through both sets at once.
     * This ensures O(n) complexity for intersection or union operations.
-    * @param  set  A first set
-    * @param  set  B second set
-    * @param  set  A chosen tnorm object
+    * @param  A  first set
+    * @param  B  second set
+    * @param  n  A chosen tnorm object
     * @return  A and B blended by the t-norm
     */
 	private static ArrayList<element> applyConorm(set A, set B, tnorm n){ // returns elements in common for A and B
@@ -232,9 +231,9 @@ public class set{
     * Computes the union of two set. 
     * The sets being sorted, we blend them together find all different x values by iterating through both sets at once.
     * This ensures O(n) complexity for intersection or union operations.
-    * @param  set  A first set
-    * @param  set  B second set
-    * @param  set  method choose proba, lukas or zadeh
+    * @param  A  first set
+    * @param  B  second set
+    * @param  method  method choosen proba, lukas or zadeh
     * @return  The union of A and B according to the chosen t-conorm 
     */	
 	public static set union(set A, set B, String method){
@@ -259,9 +258,9 @@ public class set{
     * Computes the intersection of two set. 
     * The sets being sorted, we blend them together find all different x values by iterating through both sets at once.
     * This ensures O(n) complexity for intersection or union operations.
-    * @param  set  A first set
-    * @param  set  B second set
-    * @param  set  method choose proba, lukas or zadeh 
+    * @param  A  first set
+    * @param  B  second set
+    * @param  method  method choosen proba, lukas or zadeh
     * @return  The intersection of A and B according to the chosen t-norm 
     */	
 	public static set intersection(set A, set B, String method){
@@ -284,9 +283,9 @@ public class set{
 	}
  	/**
     * Slices a set from min to max in close-by elements in O(n). Note : elements will change and go from A.min to A.max by A.step.
-    * @param  set  A set to be discretized
-    * @param  set  The discrtization set. Would could have used A.step...
-    * @param    A more refined set. 
+    * @param  A  set to be discretized
+    * @param  step  The discretization step. Would could have used A.step...
+    * @return    A more refined set. 
     */	
 	public static set discretize(set A, double step){
 		element e;
@@ -310,7 +309,7 @@ public class set{
    	* This function is not the most efficient possible...
     * With some regularity on f, it could be possible to compute A values for f-1(A) elements without scanning A each time.
     * At least a dichotomy search could prove useful ! [TODO some other time]
-    * @param  set  A set to be discretized
+    * @param  A set to be discretized
     * @param  f  A function implementing the IMapping interface
     * @param  step Step parameter
     */	
