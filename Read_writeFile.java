@@ -1,10 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 
 import java.util.ArrayList;
 
@@ -16,33 +10,22 @@ public class Read_writeFile {
 	 * @param name_file of the file we use
 	 * @return
 	 */
-	public  ArrayList<set>  reading(String name_file){
+	public  ArrayList<set>  reading(String name_file)throws Exception{
 		
 		
 		ArrayList<set> listS=new ArrayList<set>();
 		
 		BufferedReader br = null;
-		 
-		try { 
-			String sCurrentLine;
-			br = new BufferedReader(new FileReader(name_file));
- 
-			//reading line by line 
-			int reference_set=0;
-			while ((sCurrentLine = br.readLine()) != null) {
-				listS.add(reading_by_syntax(sCurrentLine,reference_set++));
-			}
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+		String sCurrentLine;
+		br = new BufferedReader(new FileReader(name_file));
+
+		//reading line by line 
+		int reference_set=0;
+		while ((sCurrentLine = br.readLine()) != null) {
+			listS.add(reading_by_syntax(sCurrentLine,reference_set++));
 		}
-		
+		 
+
 		return listS;
 		
 	}
@@ -52,8 +35,10 @@ public class Read_writeFile {
 	 * @param oneLine
 	 * @param reference_set 
 	 * @return
+	 * @throws Exception 
+	 * @throws NumberFormatException 
 	 */
-	private  set reading_by_syntax(String oneLine,int reference_set){
+	private  set reading_by_syntax(String oneLine,int reference_set) throws NumberFormaException{
 		
 		//get bounds
 		String bounds[]=(oneLine.substring(0,oneLine.indexOf("#"))).split(",");
@@ -68,7 +53,7 @@ public class Read_writeFile {
 		//by running the table points we save each x and y to list elements
 		for (String p :points){
 			String pXY[]=p.split(",");
-			elements.add(new element(Double.parseDouble(pXY[0]),Double.parseDouble(pXY[1])));
+			elements.add(new element(ToNumberFunction.stringToDouble(pXY[0]),ToNumberFunction.stringToDouble(pXY[1])));
 		}
 		
 		set s= new set(elements,boundmin,boundmax,"set"+reference_set);

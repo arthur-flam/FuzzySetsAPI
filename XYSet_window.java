@@ -83,13 +83,13 @@ public class XYSet_window {
 				
 				sets=getSet();
 				
-				//System.out.print(sets);
-				//new MainWindow(sets);
+				System.out.print(sets);
+				new MainWindow(sets);
 				
 				frame.dispose();
 			}
 			catch (NumberFormaException e){
-				NotANumberExpWindow.go(e.getMessage());
+				ErrorWindow.go(e.getMessage());
 			}
 			finally {
 				//

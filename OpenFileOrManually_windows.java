@@ -1,6 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 public class OpenFileOrManually_windows {
@@ -72,8 +75,28 @@ public class OpenFileOrManually_windows {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-		// è¿˜éœ€æ£€æµ‹ è·¯å¾„æ˜¯å¦æœ‰æ•ˆ	
-			frame.dispose();
+		// »¹Ğè¼ì²â Â·¾¶ÊÇ·ñÓĞĞ§	
+			
+			String fileName=openFileName.getText();	
+			
+			try { 
+				ArrayList<set> setss=new Read_writeFile().reading(fileName);
+				new MainWindow(setss);
+				frame.dispose();
+ 
+		} catch (FileNotFoundException e) {
+			ErrorWindow.go("No file found !");
+			
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		catch (NumberFormaException e){
+			ErrorWindow.go(e.getMessage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 			
 			
 		}
@@ -84,13 +107,14 @@ public class OpenFileOrManually_windows {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			//éœ€è¦åˆ¤æ–­è¾“å…¥å€¼æ—¶å€™ä¸ºç©ºæˆ–è€…æ— æ•ˆæ•°å­—
+			//ÊäÈëÖµÊ±ºòÎª¿Õ»òÕßÎŞĞ§Êı×Ö
 			//get #points & # sef from the windows 
 			String nbp=nbPoints.getText();
 			String nbs=nbset.getText();
 			
 			new XYSet_window(Integer.valueOf(nbp),Integer.valueOf(nbs));
 			frame.dispose();
+			
 			
 		}
 		
