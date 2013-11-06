@@ -1,3 +1,6 @@
+/**
+ * Represents an element of a real fuzzy set, with x-coordinate and the value of the belonging function. 
+ */
 public class element implements Comparable<element>{
 	double x;
 	double y;

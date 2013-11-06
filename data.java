@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a set of fuzzy sets, useful to handle a group of them 
+ */
 public class data{
 	public ArrayList<set> sets = new ArrayList<set>();
 

@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a t-norm or a t-conorm.
+ */
 public interface tnorm {
 	/**
-	 * Calcule la (t)conorme de deux valeurs
+	 * Computes the (t)conorm of two values
 	 * 
-	 * @param x valeur réelle 
-	 * @param y valeur réelle 
-	 * @return image de x par la (co)norme
+	 * @param x first belonging degree
+	 * @param y second belonging degree
+	 * @return a belonging degree
 	 */
 	public abstract double compute(double x, double y);
 

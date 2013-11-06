@@ -1,6 +1,9 @@
 import java.util.Arrays;
 import java.util.ArrayList;
 
+/**
+ * This class can be called to test the API.  
+ */
 public class fuzzySetsAPI{
     public static void main(String[] args){
     	System.out.println("1. Initialisation des points");
