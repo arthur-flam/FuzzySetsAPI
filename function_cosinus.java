@@ -2,7 +2,7 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class function_square implements IMapping{
+public class function_cosinus implements IMapping{
 	public double compute(double x){
 		return Math.cos(x);
 	};

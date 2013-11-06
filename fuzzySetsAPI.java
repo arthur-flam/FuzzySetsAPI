@@ -4,13 +4,6 @@ import java.util.ArrayList;
 public class fuzzySetsAPI{
     public static void main(String[] args){
     	System.out.println("1. Initialisation des points");
-    	// a)
-		// element a = new element(-1, 0);
-		// element b = new element(-0.99, 0.01);
-		// element c = new element(0, 1);
-		// element d = new element(1.99, 0.005);
-		// element e = new element(2, 0);
-    	// b)
 		element a = new element(1, 0);
 		element c = new element(2, 1);
 		element e = new element(3, 0);
@@ -55,10 +48,25 @@ public class fuzzySetsAPI{
 		System.out.println("***\n");
 
 		System.out.println("6. Opérations");
-		set SetAuB = Set.union(A, B, "zadeh");
-		set SetAuB = Set.intersection(A, B, "zadeh");
-		System.out.println(SetAuB);
-		System.out.println(SetAuB);
+		a = new element(-3, 0);
+		element 	b = new element(-2, 1);
+		c = new element(-1, 0);
+		element d = new element(1, 0);		
+		e = new element(2, 0.25);
+		element h = new element(2.001, 0);
+		elementsA = new ArrayList<element>(Arrays.asList(a,b,c,d,e,h));
+		SetB = new set(elementsA, -4, 3, "SetB");
+
+		System.out.println(SetA);
+		System.out.println(SetB);
+		set SetAuB = set.union(SetA, SetB, "zadeh");
+		SetAuB = set.union(SetA, SetB, "proba");
+		SetAuB = set.union(SetA, SetB, "lukas");
+
+		set SetAnB = set.intersection(SetA, SetB, "zadeh");
+		//System.out.println(SetAuB);
+		System.out.println("....");
+		//System.out.println(SetAnB);
 
     }
 }

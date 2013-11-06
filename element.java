@@ -12,6 +12,7 @@ public class element implements Comparable<element>{
 	}
 
 	public int compareTo(element e){
-		return (int) (this.x - e.x);	
+		return this.x>e.x ?1:0;	
 	}
+
 }

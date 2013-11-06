@@ -111,92 +111,92 @@ public class set{
 		Ac.vRight = 1 - Ac.vRight;
 	    return Ac;
 	}
-	private set applyConorm(set A, set B, conorm n){ // returns elements in common for A and B
+	private static ArrayList<element> applyConorm(set A, set B, tnorm n){ // returns elements in common for A and B
 		ArrayList<element> elements = new ArrayList<element>();	
 		element a; //current element
 		element b;
-		element e;
+		element e = new element(0, 0);
 		int i=0;
 		int j=0;
-		boolean Adone = FALSE; 
-		boolean Bdone = FALSE; 
-		while(!Adone && !Bdone){
-			a = A.elements.get(i);
-			b = B.elements.get(j);
-			if(Adone){
-				e.x = b.x
-				e.y = norm.compute(A.valueAt(e.x, i-1),B.valueAt(e.x, j))
-				B.add(e)
+		int a_after_b;
+		int Adone = 0; 
+		int Bdone = 0; 
+		while(Adone==0 || Bdone==0){
+			System.out.print(i - Adone+"\n");
+			a = A.elements.get(i - Adone);
+			b = B.elements.get(j - Bdone);
+			a_after_b = a.compareTo(b);
+			System.out.print("i:"+i+" j:"+j+" comp:"+a_after_b+"\n");
+			if(Adone==1){
+				e.x = b.x;
+				e.y = n.compute(A.valueAt(e.x, i-1-Adone),B.valueAt(e.x, j-1-Bdone));
+				elements.add(new element(e.x, e.y));
 				j = j + 1;
-			} else if(Bdone){
-				e.x = a.x
-				e.y = norm.compute(A.valueAt(e.x, i),B.valueAt(e.x, j-1))
-				elements.add(e);
+			} else if(Bdone==1){
+				e.x = a.x;
+				e.y = n.compute(A.valueAt(e.x, i-1-Adone),B.valueAt(e.x, j-1-Bdone));
+				elements.add(new element(e.x, e.y));
 				i = i + 1;
 			} else{
-				if(a > b){
-					e.x = a.x
-					e.y = norm.compute(A.valueAt(e.x, i-1),B.valueAt(e.x, j))
-					elements.add(e);
+					if(a_after_b>0){
+					e.x = b.x;
+					e.y = n.compute(A.valueAt(e.x, i-1-Adone),B.valueAt(e.x, j-1-Bdone));
+					elements.add(new element(e.x, e.y));
 					j = j + 1;
-				} else if (a < b) {
-					e.x = a.x
-					e.y = norm.compute(A.valueAt(e.x, i),B.valueAt(e.x, j-1))
-					elements.add(e);
+				} else if (a_after_b<0) {
+					e.x = a.x;
+					e.y = n.compute(A.valueAt(e.x, i-1-Adone),B.valueAt(e.x, j-1-Bdone));
+					elements.add(new element(e.x, e.y));
 					i = i + 1;			 
 				} else {
-					e.x = a.x
-					e.y = norm.compute(A.valueAt(e.x, i),B.valueAt(e.x, j))
+					e.x = a.x;
+					e.y = n.compute(A.valueAt(e.x, i-1-Adone),B.valueAt(e.x, j-1-Bdone));
 					i = i + 1;
 					j = j + 1;
-					elements.add(e);
+					elements.add(new element(e.x, e.y));
+					System.out.print(e);
 				}
 			}
-			Adone = i<A.length(); //iteration complete
-			Bdone = j<B.length();
+			Adone = i>A.length()-1? 1:0;
+			Bdone = j>B.length()-1? 1:0;
 		}
+		System.out.print(elements+"\n");
 		return elements;
 	}
-	public set union(set A, set B, String method){
-		name = '(' + A.toString() + ') U (' + B.toString() + ')';
-		min = Math.min(A.min, B.min);
-		max = Math.max(A.max, B.max);
-		step = Math.min(A.step, B.step);
-		if(method="proba"){
-			A = Set.discretize(A, A.step);
-			B = Set.discretize(B, B.step);
-		}
+	public static set union(set A, set B, String method){
+		String new_name = '(' + A.name + ") U (" + B.name + ')';
+		double new_min = Math.min(A.min, B.min);
+		double new_max = Math.max(A.max, B.max);
+		double new_step = Math.min(A.step, B.step);
 		tnorm n;
 		switch(method){
-			case "proba": n = new tconorm_proba(); break;
+			case "proba": n = new tconorm_proba(); A = set.discretize(A, A.step); B = set.discretize(B, B.step); break;
 			case "zadeh": n = new tconorm_zadeh(); break;
-			case "lukas": n = new tconorm_else(); break;
-		} else {System.out.println("Please provide a norm in: proba/zadeh/lukas");}
-		ArrayList<element> elements = applyNorm(A, B, n);
-		set AuB = new set(elements, min, max, name);
+			case "lukas": n = new tconorm_lukas(); break;
+			default: n = new tconorm_zadeh(); System.out.println("Defaulting to zadeh t-conorm");break;
+		}
+		ArrayList<element> elements = applyConorm(A, B, n);
+		set AuB = new set(elements, new_min, new_max, new_name);
 		AuB.vLeft = n.compute(A.vLeft,B.vLeft);
-		AuB.vRigth = n.compute(A.vRigth,B.vRigth);
+		AuB.vRight = n.compute(A.vRight,B.vRight);
 	    return AuB;
 	}
-	public set intersection(set A, set B, String method){
-		name = '(' + A.toString() + ') n (' + B.toString() + ')';
-		min = Math.min(A.min, B.min);
-		max = Math.max(A.max, B.max);
-		step = Math.min(A.step, B.step);
-		if(method="proba"){
-			A = Set.discretize(A, A.step);
-			B = Set.discretize(B, B.step);
-		}
+	public static set intersection(set A, set B, String method){
+		String new_name = '(' + A.name + ") n (" + B.name + ')';
+		double new_min = Math.min(A.min, B.min);
+		double new_max = Math.max(A.max, B.max);
+		double new_step = Math.min(A.step, B.step);
 		tnorm n;
 		switch(method){
-			case "proba": n = new tnorm_proba(); break;
+			case "proba": n = new tconorm_proba(); A = set.discretize(A, A.step); B = set.discretize(B, B.step); break;
 			case "zadeh": n = new tnorm_zadeh(); break;
-			case "lukas": n = new tnorm_else(); break;
-		} else {System.out.println("Please provide a norm in: proba/zadeh/lukas");}
-		ArrayList<element> elements = applyNorm(A, B, n);
-		set AnB = new set(elements, min, max, name);
-		AuB.vLeft = n.compute(A.vLeft,B.vLeft);
-		AuB.vRigth = n.compute(A.vRigth,B.vRigth);
+			case "lukas": n = new tnorm_lukas(); break;
+			default: n = new tnorm_zadeh(); System.out.println("Defaulting to zadeh t-norm");break;
+		}
+		ArrayList<element> elements = applyConorm(A, B, n);
+		set AnB = new set(elements, new_min, new_max, new_name);
+		AnB.vLeft = n.compute(A.vLeft,B.vLeft);
+		AnB.vRight = n.compute(A.vRight,B.vRight);
 	    return AnB;
 	}
 	public static set discretize(set A, double step){ // utile pour appliquer des fonctions 
