@@ -108,7 +108,7 @@ public class set{
     * Method used to compute the belonging function at a given value.
     * To use linear interpolation, we need first to place x between two elements of the set.
     * Scanning the whole set is a possible choice as the set is sorted. However the leads to O(n) search complexity.
-    * A dichotomy search is possible, yielding some O(n*ln(n)) but it is not the best choice for typicall use cases.
+    * A dichotomy search is possible, yielding some O(ln(n)) but it is not the best choice for typicall use cases.
     * Indeed, calls to valueAt are repeated with increasing x values whenever we perfom operations on sets.
     * We make it possible to hint the element at which the scan begins. This gives in effect a O(1) complexity for most calls.
     * @param  x  The x-axis value
