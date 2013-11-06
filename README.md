@@ -1,7 +1,8 @@
 FuzzySetsAPI
 ============
 
-Basic API offering basic operations on fuzzy sets.
+API offering basic operations on fuzzy sets.
+Created as a little class project at UPMC.
 
 ### Installation and test
 ```
